@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "554492004288",
+    "firebase_url": "https://global-home-care.firebaseio.com",
+    "project_id": "global-home-care",
+    "storage_bucket": "global-home-care.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554492004288:android:97a1d666638d632d",
+        "android_client_info": {
+          "package_name": "com.globalhomecare.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554492004288-lpah6kp445d363a2bokjvgrbqecs7j97.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD0cax_3HD3m3L4rLHH9xBmscZyFJj-eM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

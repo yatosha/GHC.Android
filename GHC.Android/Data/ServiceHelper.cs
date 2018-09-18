@@ -43,6 +43,22 @@ namespace GHC.Data
                 return false;
         }
 
+        public static async Task<bool> RegisterToken(string token, string deviceToken, string deviceName, string deviceModel, string osVersion)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest("/token/savedevicetoken", Method.GET);
+            request.AddQueryParameter("token", deviceToken);
+            request.AddQueryParameter("deviceName", deviceName);
+            request.AddQueryParameter("model", deviceModel);
+            request.AddQueryParameter("osVersion", osVersion);
+            request.AddHeader("Authorization", $"bearer {token}");
+            IRestResponse response = await client.ExecuteTaskAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return true;
+            else
+                return false;
+        }
+
         public static async Task<long> LogRequest(string token, ServiceRequest model)
         {
             //string json = JsonConvert.SerializeObject(model);

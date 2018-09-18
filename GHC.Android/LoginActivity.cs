@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -84,6 +84,8 @@ namespace GHC
             if (token != null)
             {
                 SettingsHelper.SaveToken(token, this);
+                await SendRegistrationToServer(token);
+                
                 Intent intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             }
@@ -95,6 +97,18 @@ namespace GHC
             }
 
             progress.Dismiss();
+        }
+
+        async Task SendRegistrationToServer(string token)
+        {
+            string deviceToken = SettingsHelper.GetDeviceToken(this);
+
+            // Add custom implementation here as needed.
+            string deviceModel = Build.Model;
+            string deviceName = Build.Product;
+            string osVersion = Build.VERSION.Release;
+
+            bool registered = await ServiceHelper.RegisterToken(token, deviceToken, deviceName, deviceModel, osVersion);
         }
 
         private void AlertUser(string title, string message)

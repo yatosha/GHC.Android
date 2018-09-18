@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "898175712056",
+    "firebase_url": "https://global-huduma.firebaseio.com",
+    "project_id": "global-huduma",
+    "storage_bucket": "global-huduma.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898175712056:android:e7af970ce9acd906",
+        "android_client_info": {
+          "package_name": "com.globalhomecare.huduma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898175712056-ad4q5o3rf6nc3i9gbc0t7hhurc7l07h0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8gYISgVF8QynB1DrNE9kA7cEZwjOuG9Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

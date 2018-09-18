@@ -222,12 +222,57 @@ namespace GHC
                 requestId = await ServiceHelper.LogRequest(token, request);
                 if (requestId > 0)
                 {
-                    timer = new Timer(2000);
-                    timer.Elapsed += Timer_Elapsed;
-                    timer.Start();
+                    //timer = new Timer(2000);
+                    //timer.Elapsed += Timer_Elapsed;
+                    //timer.Start();
                 }
             }
             base.OnActivityResult(requestCode, resultCode, data);
+        }
+
+        internal void HandleMessage(long requestId, string message)
+        {
+            if (message == "accepted")
+            {
+                appState = AppState.Waiting;
+                Picasso.With(this).Load(Resource.Drawable.button_arriving).Into(btnGo);
+                pulsator.Visibility = ViewStates.Visible;
+                helpView.SetText(Resource.String.worker_arriving);
+
+                Animation animation = new TranslateAnimation(0, 0, 0, 250);
+                animation.Duration = 300;
+                animation.FillAfter = true;
+                helpView.StartAnimation(animation);
+
+                pulsator.Stop();
+                pulsator.Start();
+            }
+            else if (message == "administering")
+            {
+                appState = AppState.ReceivingTreatment;
+                Picasso.With(this).Load(Resource.Drawable.button_receiving).Into(btnGo);
+                pulsator.Visibility = ViewStates.Visible;
+                helpView.SetText(Resource.String.receiving_treatment);
+
+                pulsator.Stop();
+                pulsator.Start();
+            }
+            else if (message == "completed")
+            {
+                appState = AppState.Done;
+                Picasso.With(this).Load(Resource.Drawable.button_completed).Into(btnGo);
+                pulsator.Visibility = ViewStates.Visible;
+                helpView.SetText(Resource.String.worker_arriving);
+
+                helpView.Text = Resources.GetString(Resource.String.treatment_complete);
+                Animation animation = new TranslateAnimation(0, 0, 0, -250);
+                animation.Duration = 300;
+                animation.FillAfter = true;
+                helpView.StartAnimation(animation);
+
+                pulsator.Stop();
+            }
+
         }
 
         private async void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -356,6 +401,21 @@ namespace GHC
         public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
         {
 
+        }
+
+        
+    }
+
+    public class RequestsReceiver : BroadcastReceiver
+    {
+        public MainActivity Activity { get; set; }
+
+        public override void OnReceive(Context context, Intent intent)
+        {
+            long requestId = intent.GetLongExtra("requestId", 0);
+            string message = intent.GetStringExtra("message");
+
+            Activity.HandleMessage(requestId, message);
         }
     }
 
