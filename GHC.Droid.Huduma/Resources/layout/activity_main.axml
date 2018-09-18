@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/root"
+	android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-</RelativeLayout>
+	<ImageView
+        android:src="@drawable/ghc_logo_colored"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:id="@+id/logo"
+        android:layout_gravity="top|center_horizontal" />
+	<android.support.v7.widget.RecyclerView
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_weight="1"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/rvRequests" />
+	<android.support.v7.widget.RecyclerView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvMenu"
+        android:layout_gravity="bottom"
+		android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp" />
+</LinearLayout>

@@ -1,28 +1,52 @@
-﻿using System;
-using Android;
+﻿using Android;
 using Android.App;
-using Android.Widget;
-using Android.OS;
-using Android.Support.Design.Widget;
-using Android.Support.V7.App;
-using Android.Views;
-using Calligraphy;
 using Android.Content;
-using PL.Bclogic.Pulsator4droid.Library;
-using AndroidViewAnimations;
-using Android.Support.V7.Widget;
-using GHC.Adapters;
-using Android.Views.Animations;
+using Android.Content.PM;
+using Android.Locations;
+using Android.OS;
 using Android.Preferences;
+using Android.Provider;
 using Android.Runtime;
-using System.Threading;
+using Android.Support.Design.Widget;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
+using Android.Support.V7.App;
+using Android.Support.V7.Widget;
+using Android.Util;
+using Android.Views;
+using Android.Views.Animations;
+using Android.Widget;
+using Calligraphy;
+using GHC.Adapters;
+using GHC.Data;
+using PL.Bclogic.Pulsator4droid.Library;
 using Square.Picasso;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Timers;
 
 namespace GHC
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
-    public class MainActivity : AppCompatActivity
+    public class MainActivity : AppCompatActivity, ILocationListener
     {
+        Location _currentLocation;
+        LocationManager _locationManager;
+
+        string _locationProvider;
+
+        readonly string[] PermissionsLocation =
+        {
+          Manifest.Permission.AccessCoarseLocation,
+          Manifest.Permission.AccessFineLocation
+        };
+
+        const int RequestLocationId = 0;
+
+        long requestId = 0;
+        Timer timer;
+
         PulsatorLayout pulsator;
         ImageView btnGo;
         RecyclerView recyclerView;
@@ -57,11 +81,15 @@ namespace GHC
 
             btnGo.Click += BtnGo_Click;
 
-            //Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            //         SetSupportActionBar(toolbar);
-
-            //FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            //         fab.Click += FabOnClick;
+            if ((int)Build.VERSION.SdkInt < 23)
+            {
+                InitializeLocationManager();
+                return;
+            }
+            else
+            {
+                GetLocationPermissionAsync();
+            }
         }
 
         private void Adapter_ItemClick(object sender, MainMenuAdapterClickEventArgs e)
@@ -157,10 +185,13 @@ namespace GHC
             return base.OnOptionsItemSelected(item);
         }
 
-        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        protected override async void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             if (requestCode == 200 && resultCode == Result.Ok)
             {
+                long healthServiceId = data.GetLongExtra("serviceId", 0);
+                string token = SettingsHelper.GetToken(this);
+
                 appState = AppState.Searching;
                 Picasso.With(this).Load(Resource.Drawable.button_searching).Into(btnGo);
                 pulsator.Visibility = ViewStates.Visible;
@@ -173,8 +204,54 @@ namespace GHC
 
                 pulsator.Stop();
                 pulsator.Start();
+
+                double latitude = -6.791992, longitude = 39.208219;
+                if (_currentLocation != null)
+                {
+                    latitude = _currentLocation.Latitude;
+                    longitude = _currentLocation.Longitude;
+                }
+                ServiceRequest request = new ServiceRequest()
+                {
+                    Latitude = latitude,
+                    Longitude = longitude,
+                    Status = RequestStatus.Initiated,
+                    HealthServiceId = healthServiceId
+                };
+
+                requestId = await ServiceHelper.LogRequest(token, request);
+                if (requestId > 0)
+                {
+                    timer = new Timer(2000);
+                    timer.Elapsed += Timer_Elapsed;
+                    timer.Start();
+                }
             }
             base.OnActivityResult(requestCode, resultCode, data);
+        }
+
+        private async void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            string token = SettingsHelper.GetToken(this);
+            ServiceRequest req = await ServiceHelper.GetRequest(token, requestId);
+            if (req != null)
+            {
+                if (req.HealthcareProviderId != null && req.HealthcareProviderId > 0)
+                {
+                    appState = AppState.Waiting;
+                    Picasso.With(this).Load(Resource.Drawable.button_receiving).Into(btnGo);
+                    pulsator.Visibility = ViewStates.Visible;
+                    helpView.SetText(Resource.String.worker_arriving);
+
+                    Animation animation = new TranslateAnimation(0, 0, 0, 250);
+                    animation.Duration = 300;
+                    animation.FillAfter = true;
+                    helpView.StartAnimation(animation);
+
+                    pulsator.Stop();
+                    pulsator.Start();
+                }
+            }
         }
 
 
@@ -188,6 +265,97 @@ namespace GHC
             newBase = LanguageContext.NewLanguageAwareContext(lang, newBase);
             Context context = new LanguageContext(newBase);
             base.AttachBaseContext(CalligraphyContextWrapper.Wrap(context));
+        }
+
+
+        void InitializeLocationManager()
+        {
+            _locationManager = (LocationManager)GetSystemService(LocationService);
+            Criteria criteriaForLocationService = new Criteria
+            {
+                Accuracy = Accuracy.Coarse
+            };
+            IList<string> acceptableLocationProviders = _locationManager.GetProviders(criteriaForLocationService, true);
+
+            if (acceptableLocationProviders.Any())
+            {
+                _locationProvider = acceptableLocationProviders.First();
+                _locationManager.RequestLocationUpdates(_locationProvider, 1000, 10, this);
+                //_currentLocation = _locationManager.GetLastKnownLocation(_locationProvider);
+            }
+            else
+            {
+                //Explain to the user why we need location and prompt access to location
+                Snackbar.Make(FindViewById(Resource.Id.root), "Location should be enabled in settings", Snackbar.LengthIndefinite)
+                        .SetAction("OK", v =>
+                        {
+                            Intent locationIntent = new Intent(Settings.ActionLocationSourceSettings);
+                            StartActivity(locationIntent);
+                        })
+                        .Show();
+                _locationProvider = string.Empty;
+            }
+
+
+            Log.Debug("Global Home Care", "Using " + _locationProvider + ".");
+        }
+
+        void GetLocationPermissionAsync()
+        {
+            const string permission = Manifest.Permission.AccessFineLocation;
+            if (ContextCompat.CheckSelfPermission(this, permission) == (int)Permission.Granted)
+            {
+                InitializeLocationManager();
+                return;
+            }
+
+            if (ActivityCompat.ShouldShowRequestPermissionRationale(this, permission))
+            {
+                //Explain to the user why we need to read the contacts
+                Snackbar.Make(this.FindViewById(Resource.Id.root), "Location access is required to register Customer Location.", Snackbar.LengthIndefinite)
+                        .SetAction("OK", v => ActivityCompat.RequestPermissions(this, PermissionsLocation, RequestLocationId))
+                        .Show();
+
+                return;
+            }
+
+            ActivityCompat.RequestPermissions(this, PermissionsLocation, RequestLocationId);
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            if (_locationManager != null && !string.IsNullOrEmpty(_locationProvider))
+                _locationManager.RequestLocationUpdates(_locationProvider, 10000, 10, this);
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+
+            if (_locationManager != null)
+                _locationManager.RemoveUpdates(this);
+        }
+
+        public void OnLocationChanged(Location location)
+        {
+            _currentLocation = location;
+        }
+
+        public void OnProviderDisabled(string provider)
+        {
+
+        }
+
+        public void OnProviderEnabled(string provider)
+        {
+
+        }
+
+        public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
+        {
+
         }
     }
 

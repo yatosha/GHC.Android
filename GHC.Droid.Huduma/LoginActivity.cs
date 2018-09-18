@@ -34,7 +34,6 @@ namespace GHC
             txtPhone = FindViewById<EditText>(Resource.Id.txtPhone);
             txtPassword = FindViewById<EditText>(Resource.Id.txtPassword);
             btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
-            tvRegisterHint = FindViewById<TextView>(Resource.Id.tvRegisterHint);
 
             txtPhone.Visibility = ViewStates.Invisible;
             txtPassword.Visibility = ViewStates.Invisible;
@@ -49,13 +48,6 @@ namespace GHC
             
 
             btnLogin.Click += BtnLogin_Click;
-            tvRegisterHint.Click += TvRegisterHint_Click;
-        }
-
-        private void TvRegisterHint_Click(object sender, EventArgs e)
-        {
-            Intent intent = new Intent(this, typeof(RegisterActivity));
-            StartActivity(intent);
         }
 
         private async void BtnLogin_Click(object sender, EventArgs e)

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="20dp">
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="90dp"
+		android:padding="5dp"
+		android:id="@+id/linearLayout1">
+		<ImageView
+			android:src="@drawable/profile_icon"
+			android:layout_width="80dp"
+			android:layout_height="80dp"
+			android:id="@+id/imageView1" />
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:paddingLeft="10dp">
+			<TextView
+				android:text="Medium Text"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:minWidth="25px"
+				android:minHeight="25px"
+				android:id="@+id/tvName" />
+			<TextView
+				android:text="Small Text"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvPhone" />
+			<TextView
+				android:text=""
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvDistance"
+				android:textColor="@color/colorPrimaryDark" />
+		</LinearLayout>
+	</LinearLayout>
+	<Button
+		android:text="Accept"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/btnAccept"
+		android:background="@color/colorPrimary"
+		android:textColor="@android:color/white" />
+	<Button
+		android:text="Call"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/btnCall"
+		android:background="@color/colorPrimary"
+		android:textColor="@android:color/white"
+		android:layout_marginTop="10dp"
+		android:visibility="gone" />
+	<Button
+		android:text="Navigate"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/btnNavigate"
+		android:background="@color/colorPrimary"
+		android:textColor="@android:color/white"
+		android:layout_marginTop="10dp"
+		android:visibility="gone" />
+
+</LinearLayout>

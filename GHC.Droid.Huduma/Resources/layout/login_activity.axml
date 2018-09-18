@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<FrameLayout
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/frameLayout1"
+		android:background="@color/colorPrimary"
+		android:layout_weight="1">
+		<ImageView
+			android:src="@drawable/doctors_overlay"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/imageView3"
+			android:scaleType="centerCrop"
+			android:transitionName="background" />
+		<ImageView
+			android:src="@drawable/ghc_logo_white"
+			android:layout_width="200dp"
+			android:layout_height="match_parent"
+			android:id="@+id/imageView2"
+			android:layout_gravity="center"
+			android:transitionName="logo" />
+	</FrameLayout>
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/txtPhone"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginBottom="20dp"
+		android:hint="@string/email"
+		android:inputType="none|textEmailAddress"
+		android:layout_marginTop="80dp" />
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/txtPassword"
+		android:inputType="textPassword"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginBottom="20dp"
+		android:hint="@string/password" />
+	<Button
+		android:text="@string/login"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/btnLogin"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:textColor="@android:color/white"
+		android:background="@color/colorPrimary"
+		android:layout_marginBottom="50dp" />
+</LinearLayout>

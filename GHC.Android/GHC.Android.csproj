@@ -65,10 +65,12 @@
     <Compile Include="Adapters\LanguagesAdapter.cs" />
     <Compile Include="Adapters\MainMenuAdapter.cs" />
     <Compile Include="Adapters\ServicesAdapter.cs" />
+    <Compile Include="Data\Customer.cs" />
     <Compile Include="Data\CustomerViewModel.cs" />
     <Compile Include="Data\HealthService.cs" />
     <Compile Include="Data\PricingCategory.cs" />
     <Compile Include="Data\ServiceHelper.cs" />
+    <Compile Include="Data\ServiceRequest.cs" />
     <Compile Include="Data\SettingsHelper.cs" />
     <Compile Include="GHCApp.cs" />
     <Compile Include="LanguageActivity.cs" />
@@ -277,6 +279,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ghc_logo_colored.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\profile_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

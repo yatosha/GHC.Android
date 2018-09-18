@@ -15,7 +15,7 @@ namespace GHC.Data
 {
     public static class ServiceHelper
     {
-        const string baseUrl = "http://globalhomecare.azurewebsites.net";
+        const string baseUrl = "https://globalhomecare.azurewebsites.net";
 
         public static async Task<string> Authenticate(string email, string password)
         {
@@ -24,49 +24,6 @@ namespace GHC.Data
             request.AddHeader("content-type", "application/json");
             request.AddParameter("application/json", $"{{ Email: \"{email}\", Password: \"{password}\" }}", ParameterType.RequestBody);
             IRestResponse<string> response = await client.ExecuteTaskAsync<string>(request);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                return response.Data;
-            else
-                return null;
-        }
-
-        public static async Task<bool> Register(CustomerViewModel model)
-        {
-            RestClient client = new RestClient(baseUrl);
-            RestRequest request = new RestRequest("/customers/register", Method.POST);
-            request.AddHeader("content-type", "application/json");
-            request.AddParameter("application/json", model, ParameterType.RequestBody);
-            IRestResponse response = await client.ExecuteTaskAsync(request);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                return true;
-            else
-                return false;
-        }
-
-        public static async Task<long> LogRequest(string token, ServiceRequest model)
-        {
-            //string json = JsonConvert.SerializeObject(model);
-            RestClient client = new RestClient(baseUrl);
-            RestRequest request = new RestRequest("/servicerequests/log", Method.POST);
-            request.AddHeader("Authorization", $"bearer {token}");
-            request.AddHeader("content-type", "application/json");
-            request.AddJsonBody(model);
-            //request.AddParameter("application/json", model, ParameterType.RequestBody);
-            IRestResponse<long> response = await client.ExecuteTaskAsync<long>(request);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                return response.Data;
-            else
-                return 0;
-        }
-
-        public static async Task<ServiceRequest> GetRequest(string token, long id)
-        {
-            RestClient client = new RestClient(baseUrl);
-            RestRequest request = new RestRequest($"/servicerequests/getrequest", Method.GET);
-            request.AddQueryParameter("id", id.ToString());
-            request.AddHeader("Authorization", $"bearer {token}");
-            request.AddHeader("content-type", "application/json");
-            IRestResponse<ServiceRequest> response = await client.ExecuteTaskAsync<ServiceRequest>(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 return response.Data;
             else
@@ -83,6 +40,32 @@ namespace GHC.Data
                 return response.Data;
             else
                 return null;
+        }
+
+        public static async Task<List<RequestVM>> GetServiceRequests()
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest($"/servicerequests/getrequests", Method.GET);
+            request.AddHeader("content-type", "application/json");
+            IRestResponse<List<RequestVM>> response = await client.ExecuteTaskAsync<List<RequestVM>>(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return response.Data;
+            else
+                return null;
+        }
+
+        public static async Task<bool> AcceptRequest(string token, long id)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest($"/servicerequests/acceptrequest", Method.GET);
+            request.AddQueryParameter("id", id.ToString());
+            request.AddHeader("Authorization", $"bearer {token}");
+            request.AddHeader("content-type", "application/json");
+            IRestResponse response = await client.ExecuteTaskAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return true;
+            else
+                return false;
         }
 
         public static async Task<List<HealthService>> GetServices(string token)
