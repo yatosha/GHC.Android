@@ -19,6 +19,7 @@ using Android.Widget;
 using Calligraphy;
 using GHC.Adapters;
 using GHC.Data;
+using Java.Interop;
 using PL.Bclogic.Pulsator4droid.Library;
 using Square.Picasso;
 using System;
@@ -31,6 +32,8 @@ namespace GHC
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class MainActivity : AppCompatActivity, ILocationListener
     {
+        BroadcastReceiver receiver;
+
         Location _currentLocation;
         LocationManager _locationManager;
 
@@ -90,7 +93,16 @@ namespace GHC
             {
                 GetLocationPermissionAsync();
             }
+
+            long requestId = Intent.GetLongExtra("requestId", 0);
+            if (requestId != 0)
+            {
+                string message = Intent.GetStringExtra("message");
+
+                HandleMessage(requestId, message);
+            }
         }
+        
 
         private void Adapter_ItemClick(object sender, MainMenuAdapterClickEventArgs e)
         {
@@ -369,18 +381,26 @@ namespace GHC
 
         protected override void OnResume()
         {
-            base.OnResume();
+            receiver = new RequestsReceiver { Activity = this };
+            IntentFilter filter = new IntentFilter();
+            filter.AddAction("com.com.globalhomecare.app.REQUESTMESSAGE");
+            RegisterReceiver(receiver, filter);
 
             if (_locationManager != null && !string.IsNullOrEmpty(_locationProvider))
                 _locationManager.RequestLocationUpdates(_locationProvider, 10000, 10, this);
+
+            base.OnResume();
         }
 
         protected override void OnPause()
         {
-            base.OnPause();
+            if (receiver != null)
+                UnregisterReceiver(receiver);
 
             if (_locationManager != null)
                 _locationManager.RemoveUpdates(this);
+
+            base.OnPause();
         }
 
         public void OnLocationChanged(Location location)
@@ -403,21 +423,26 @@ namespace GHC
 
         }
 
-        
-    }
-
-    public class RequestsReceiver : BroadcastReceiver
-    {
-        public MainActivity Activity { get; set; }
-
-        public override void OnReceive(Context context, Intent intent)
+        [BroadcastReceiver(Enabled = true)]
+        [IntentFilter(new[] { "com.com.globalhomecare.app.REQUESTMESSAGE" })]
+        public class RequestsReceiver : BroadcastReceiver
         {
-            long requestId = intent.GetLongExtra("requestId", 0);
-            string message = intent.GetStringExtra("message");
+            public MainActivity Activity { get; set; }
 
-            Activity.HandleMessage(requestId, message);
+            public override void OnReceive(Context context, Intent intent)
+            {
+                long requestId = intent.GetLongExtra("requestId", 0);
+                string message = intent.GetStringExtra("message");
+
+                if (Activity != null)
+                    Activity.HandleMessage(requestId, message);
+            }
         }
+
+
     }
+
+    
 
     public enum AppState
     {

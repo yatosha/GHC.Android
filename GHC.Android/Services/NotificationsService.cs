@@ -29,6 +29,11 @@ namespace GHC.Services
                 string content = message.Data["message"];
 
                 SendNotification(requestId, content);
+
+                var intent = new Intent("com.com.globalhomecare.app.REQUESTMESSAGE");
+                intent.PutExtra("requestId", requestId);
+                intent.PutExtra("message", content);
+                SendBroadcast(intent);
             }
         }
 
@@ -50,6 +55,7 @@ namespace GHC.Services
             Intent intent = new Intent(this, typeof(MainActivity));
             intent.AddFlags(ActivityFlags.ClearTop);
             intent.PutExtra("requestId", requestId);
+            intent.PutExtra("message", content);
 
             var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
 
