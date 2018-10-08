@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <string-array name="languages">
+    <item>English</item>
+    <item>Kiswahili</item>
+  </string-array>
+
+  <string-array name="locales">
+    <item>en</item>
+    <item>sw</item>
+  </string-array>
+</resources>

@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Calligraphy;
+using GHC.Data;
 
 namespace GHC
 {
@@ -21,7 +22,7 @@ namespace GHC
         {
         }
 
-        public override void OnCreate()
+        public async override void OnCreate()
         {
             base.OnCreate();
 
@@ -30,30 +31,12 @@ namespace GHC
             //AppCenter.Start("28a1a4e1-b729-456f-b514-257b4e7e8333",
             //       typeof(Analytics), typeof(Crashes));
 
-            //PrintKeyHash();
-
-            //RegisterActivityLifecycleCallbacks(this);
-
-            //EnableStrictMode();
-
-            //InitImageLoader();
-
-            //UpdateLanguage(this);
+            await Repository.InitializeDatabase();
 
             CalligraphyConfig.InitDefault(new CalligraphyConfig.Builder()
                     .SetDefaultFontPath("fonts/Nunito-Regular.ttf")
-                    //.SetFontAttrId(Resource.Attribute.fontPath)
-                // Adding a custom view that support adding a typeFace
-                // .AddCustomViewWithSetTypeface(Java.Lang.Class.FromType(typeof(CustomViewWithTypefaceSupport)))
-                // Adding a custom style
-                // .AddCustomStyle(Java.Lang.Class.FromType(typeof(TextField)), Resource.Attribute.textFieldStyle)
                 .Build()
             );
-
-            //AndroidEnvironment.UnhandledExceptionRaiser += (sender, args) =>
-            //{
-            //    args.Handled = true;
-            //};
         }
     }
 }

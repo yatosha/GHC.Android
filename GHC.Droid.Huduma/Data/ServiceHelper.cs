@@ -30,6 +30,19 @@ namespace GHC.Data
                 return null;
         }
 
+        public static async Task<string> GetName(string token)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest($"/token/getname", Method.GET);
+            request.AddHeader("Authorization", $"bearer {token}");
+            request.AddHeader("content-type", "application/json");
+            IRestResponse<string> response = await client.ExecuteTaskAsync<string>(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return response.Data;
+            else
+                return null;
+        }
+
         public static async Task<List<PricingCategory>> GetPricingCategories()
         {
             RestClient client = new RestClient(baseUrl);
@@ -54,18 +67,59 @@ namespace GHC.Data
                 return null;
         }
 
-        public static async Task<bool> AcceptRequest(string token, long id)
+        public static async Task<RequestVM> AcceptRequest(string token, long id)
         {
             RestClient client = new RestClient(baseUrl);
             RestRequest request = new RestRequest($"/servicerequests/acceptrequest", Method.GET);
             request.AddQueryParameter("id", id.ToString());
             request.AddHeader("Authorization", $"bearer {token}");
             request.AddHeader("content-type", "application/json");
-            IRestResponse response = await client.ExecuteTaskAsync(request);
+            IRestResponse<RequestVM> response = await client.ExecuteTaskAsync<RequestVM>(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                return true;
+                return response.Data;
             else
-                return false;
+                return null;
+        }
+
+        public static async Task<RequestVM> AdministerRequest(string token, long id)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest($"/servicerequests/administerrequest", Method.GET);
+            request.AddQueryParameter("id", id.ToString());
+            request.AddHeader("Authorization", $"bearer {token}");
+            request.AddHeader("content-type", "application/json");
+            IRestResponse<RequestVM> response = await client.ExecuteTaskAsync<RequestVM>(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return response.Data;
+            else
+                return null;
+        }
+
+        public static async Task<RequestVM> CompleteRequest(string token, long id)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest($"/servicerequests/completerequest", Method.GET);
+            request.AddQueryParameter("id", id.ToString());
+            request.AddHeader("Authorization", $"bearer {token}");
+            request.AddHeader("content-type", "application/json");
+            IRestResponse<RequestVM> response = await client.ExecuteTaskAsync<RequestVM>(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return response.Data;
+            else
+                return null;
+        }
+
+        public static async Task<List<RequestVM>> GetHistory(string token)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest($"/servicerequests/gethistory", Method.GET);
+            request.AddHeader("Authorization", $"bearer {token}");
+            request.AddHeader("content-type", "application/json");
+            IRestResponse<List<RequestVM>> response = await client.ExecuteTaskAsync<List<RequestVM>>(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return response.Data;
+            else
+                return null;
         }
 
         public static async Task<List<HealthService>> GetServices(string token)
@@ -79,6 +133,22 @@ namespace GHC.Data
                 return response.Data;
             else
                 return null;
+        }
+
+        public static async Task<bool> RegisterToken(string token, string deviceToken, string deviceName, string deviceModel, string osVersion)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest("/token/savedevicetoken", Method.GET);
+            request.AddQueryParameter("token", deviceToken);
+            request.AddQueryParameter("deviceName", deviceName);
+            request.AddQueryParameter("model", deviceModel);
+            request.AddQueryParameter("osVersion", osVersion);
+            request.AddHeader("Authorization", $"bearer {token}");
+            IRestResponse response = await client.ExecuteTaskAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return true;
+            else
+                return false;
         }
     }
 }

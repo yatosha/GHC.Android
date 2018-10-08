@@ -6,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Content.Res;
+using Android.Gms.Common;
 using Android.OS;
 using Android.Preferences;
 using Android.Runtime;

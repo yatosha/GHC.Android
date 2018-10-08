@@ -41,7 +41,7 @@ namespace GHC.Adapters
             // Replace the contents of the view with that element
             var holder = viewHolder as RequestsAdapterViewHolder;
             holder.CustomerName.Text = item.CustomerName.ToUpper();
-            holder.CustomerPhone.Text = item.CustomerPhone;
+            holder.Service.Text = item.HealthServiceName;
 
             if (Location != null)
             {
@@ -76,14 +76,15 @@ namespace GHC.Adapters
         public TextView CustomerName { get; set; }
         public TextView CustomerPhone { get; set; }
         public TextView CustomerDistance { get; set; }
+        public TextView Service { get; set; }
 
 
         public RequestsAdapterViewHolder(View itemView, Action<RequestsAdapterClickEventArgs> clickListener,
                             Action<RequestsAdapterClickEventArgs> longClickListener) : base(itemView)
         {
             CustomerName = itemView.FindViewById<TextView>(Resource.Id.tvName);
-            CustomerPhone = itemView.FindViewById<TextView>(Resource.Id.tvPhone);
             CustomerDistance = itemView.FindViewById<TextView>(Resource.Id.tvDistance);
+            Service = itemView.FindViewById<TextView>(Resource.Id.tvService);
             itemView.Click += (sender, e) => clickListener(new RequestsAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
             itemView.LongClick += (sender, e) => longClickListener(new RequestsAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
         }

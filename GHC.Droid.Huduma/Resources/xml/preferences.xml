@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <android.support.v7.preference.PreferenceCategory
+        android:title="@string/user_interface">
+
+    <ListPreference 
+      android:title="@string/language"
+      android:summary="@string/change_language"
+      android:key="locale"
+      android:defaultValue="en"
+      android:entries="@array/languages"
+      android:entryValues="@array/locales" />
+
+  </android.support.v7.preference.PreferenceCategory>
+
+  <android.support.v7.preference.PreferenceCategory
+      android:title="Application">
+
+    <Preference
+        android:key="keyAbout"
+        android:title="@string/version"
+        android:summary="Version 1.0.0" />
+    
+  </android.support.v7.preference.PreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>

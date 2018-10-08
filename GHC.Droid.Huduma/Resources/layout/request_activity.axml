@@ -1,62 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:padding="20dp">
-	<LinearLayout
-		android:orientation="horizontal"
-		android:minWidth="25px"
-		android:minHeight="25px"
+	android:layout_height="match_parent">
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:layout_height="90dp"
-		android:padding="5dp"
-		android:id="@+id/linearLayout1">
-		<ImageView
-			android:src="@drawable/profile_icon"
-			android:layout_width="80dp"
-			android:layout_height="80dp"
-			android:id="@+id/imageView1" />
-		<LinearLayout
-			android:orientation="vertical"
+		android:minHeight="?attr/actionBarSize"
+		android:background="?attr/colorPrimary"
+		style="@style/MyLightToolbarStyle">
+		<FrameLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:paddingLeft="10dp">
+			android:layout_height="wrap_content">
+			<ImageView
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:id="@+id/MenuButton"
+				android:padding="4dp"
+				android:src="@drawable/ic_action_arrow_back_ios" />
+			<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:id="@+id/linearLayout1">
 			<TextView
-				android:text="Medium Text"
+				android:text="@string/treatment_request"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="fill_parent"
+				android:id="@+id/tbTitle"
+				android:gravity="center"
+				android:textColor="@android:color/white"
+				android:textStyle="bold"
+				android:layout_marginTop="10dp" />
+			<ImageView
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:id="@+id/avatar"
+				android:padding="4dp"
+				android:layout_centerVertical="true"
+				android:src="@drawable/profile_icon"
+				android:layout_gravity="center"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp" />
+			<TextView
+				android:text="ASUMEGE ALISON"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:minWidth="25px"
-				android:minHeight="25px"
-				android:id="@+id/tvName" />
+				android:layout_height="fill_parent"
+				android:id="@+id/tvName"
+				android:gravity="center"
+				android:textColor="@android:color/white"
+				fontPath="fonts/Nunito-Bold.ttf" />
 			<TextView
-				android:text="Small Text"
+				android:text="0712 600600"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:id="@+id/tvPhone" />
+				android:id="@+id/tvPhone"
+				android:textColor="@android:color/white"
+				android:gravity="center" />
 			<TextView
-				android:text=""
+				android:text="Vidonda vya macho"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvService"
+				android:textColor="@android:color/white"
+				android:gravity="center" />
+			<TextView
+				android:text="57km"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/tvDistance"
-				android:textColor="@color/colorPrimaryDark" />
+				android:textColor="@android:color/white"
+				android:layout_marginBottom="10dp"
+				android:gravity="center" />
 		</LinearLayout>
-	</LinearLayout>
-	<Button
-		android:text="Accept"
+		</FrameLayout>
+	</android.support.v7.widget.Toolbar>
+	<FrameLayout
+		android:minWidth="25px"
+		android:minHeight="25px"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/btnAccept"
-		android:background="@color/colorPrimary"
-		android:textColor="@android:color/white" />
+		android:layout_height="82dp"
+		android:id="@+id/frameLayout1" >
+		<ImageView
+			android:src="@drawable/request_background"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:id="@+id/imageView1"
+			android:scaleType="fitXY" />
+		<android.support.v7.widget.CardView
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:layout_width="200dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="4dp"
+			android:id="@+id/cardView1"
+			android:clipChildren="true"
+			android:layout_gravity="center_horizontal"
+			app:cardCornerRadius="8dp" >
+			<Button
+				android:text="Accept"
+				android:layout_gravity="center_horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/btnAccept"
+				android:background="@android:color/white" />
+			<ProgressBar
+				android:layout_width="match_parent"
+				android:layout_height="40dp"
+				android:id="@+id/progressBar"
+				android:indeterminate="true"
+				android:visibility="visible"
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="5dp" />
+		</android.support.v7.widget.CardView>
+		
+	</FrameLayout>
+	
+	
 	<Button
 		android:text="Call"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
 		android:id="@+id/btnCall"
 		android:background="@color/colorPrimary"
 		android:textColor="@android:color/white"
@@ -66,10 +142,69 @@
 		android:text="Navigate"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
 		android:id="@+id/btnNavigate"
 		android:background="@color/colorPrimary"
 		android:textColor="@android:color/white"
 		android:layout_marginTop="10dp"
 		android:visibility="gone" />
-
+	<Button
+		android:text="Start Treatment"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:id="@+id/btnStartTreatment"
+		android:background="@color/colorPrimary"
+		android:textColor="@android:color/white"
+		android:layout_marginTop="10dp"
+		android:visibility="gone" />
+	<Button
+		android:text="Complete"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:id="@+id/btnComplete"
+		android:background="@color/colorPrimary"
+		android:textColor="@android:color/white"
+		android:layout_marginTop="10dp"
+		android:visibility="gone" />
+	<TextView
+		android:text="ACCEPT REQUEST TO GET STARTED"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/tvHint"
+		android:gravity="center"
+		android:textColor="#ff424242"
+		android:padding="20dp" />
+	<FrameLayout
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout2"
+		android:layout_weight="1">
+		<TextView
+			android:text="ARRIVAL DURATION"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/tvDurationTitle"
+			android:gravity="center"
+			android:layout_gravity="center"
+			android:layout_marginBottom="30dp"/>
+		<TextView
+			android:text="00:00:00"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/tvDuration"
+			android:gravity="center"
+			android:textSize="48dp"
+			android:textColor="@color/colorPrimaryDark"
+			android:layout_gravity="center" />
+	</FrameLayout>
 </LinearLayout>

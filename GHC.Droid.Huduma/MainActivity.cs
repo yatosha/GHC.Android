@@ -19,12 +19,17 @@ using Android.Support.V4.Content;
 using Android.Content.PM;
 using Android.Support.V4.App;
 using Android.Provider;
+using Android.Preferences;
+using Calligraphy;
+using System;
 
 namespace GHC
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class MainActivity : AppCompatActivity, ILocationListener
     {
+        BroadcastReceiver receiver;
+
         Location _currentLocation;
         LocationManager _locationManager;
 
@@ -44,7 +49,7 @@ namespace GHC
         RecyclerView rvRequests, rvMenu;
         RequestsAdapter adapter2;
 
-        string[] menuItems = { "History", "Settings" };
+        string[] menuItems = { "Profile", "Settings" };
 
         protected override async void OnCreate(Bundle savedInstanceState)
         {
@@ -58,18 +63,26 @@ namespace GHC
             GridLayoutManager lm = new GridLayoutManager(this, 2);
             rvMenu.SetLayoutManager(lm);
 
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvMenu.Context, DividerItemDecoration.Vertical);
-            DividerItemDecoration dividerItemDecoration2 = new DividerItemDecoration(rvMenu.Context, DividerItemDecoration.Horizontal);
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.Vertical);
+            DividerItemDecoration dividerItemDecoration2 = new DividerItemDecoration(this, DividerItemDecoration.Horizontal);
             rvMenu.AddItemDecoration(dividerItemDecoration);
             rvMenu.AddItemDecoration(dividerItemDecoration2);
+            
 
             MainMenuAdapter adapter = new MainMenuAdapter(menuItems);
+            adapter.ItemClick += Adapter_ItemClick;
             rvMenu.SetAdapter(adapter);
 
             LinearLayoutManager manager = new LinearLayoutManager(this);
             rvRequests.SetLayoutManager(manager);
+            rvRequests.AddItemDecoration(dividerItemDecoration2);
 
-            serviceRequests = await ServiceHelper.GetServiceRequests();
+            serviceRequests = await Repository.GetPendingRequests();
+            if (serviceRequests.Count < 1)
+            {
+                serviceRequests = await ServiceHelper.GetServiceRequests();
+            }
+            
             adapter2 = new RequestsAdapter(serviceRequests.ToArray(), _currentLocation);
             rvRequests.SetAdapter(adapter2);
             adapter2.ItemClick += Adapter2_ItemClick;
@@ -86,11 +99,36 @@ namespace GHC
 
         }
 
+        private void Adapter_ItemClick(object sender, MainMenuAdapterClickEventArgs e)
+        {
+            if (e.Position == 0)
+            {
+                StartActivity(typeof(ProfileActivity));
+            }
+            else
+            {
+                Intent intent = new Intent(this, typeof(SettingsActivity));
+                StartActivity(intent);
+            }
+        }
+
+        // Required by Calligraphy
+        protected override void AttachBaseContext(Context newBase)
+        {
+            ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(newBase);
+
+            string lang = preferences.GetString("locale", "en");
+            newBase = LanguageContext.NewLanguageAwareContext(lang, newBase);
+            Context context = new LanguageContext(newBase);
+            base.AttachBaseContext(CalligraphyContextWrapper.Wrap(context));
+        }
+
         private void Adapter2_ItemClick(object sender, RequestsAdapterClickEventArgs e)
         {
             RequestVM vm = serviceRequests[e.Position];
             Intent intent = new Intent(this, typeof(RequestActivity));
             intent.PutExtra("requestId", vm.Id);
+            intent.PutExtra("service", vm.HealthServiceName);
             intent.PutExtra("customerName", vm.CustomerName);
             intent.PutExtra("customerPhone", vm.CustomerPhone);
             intent.PutExtra("latitude", vm.Latitude);
@@ -181,18 +219,47 @@ namespace GHC
 
         protected override void OnResume()
         {
-            base.OnResume();
+            receiver = new RequestsReceiver { Activity = this };
+            IntentFilter filter = new IntentFilter();
+            filter.AddAction("com.com.globalhomecare.huduma.REQUESTMESSAGE");
+            RegisterReceiver(receiver, filter);
 
             if (_locationManager != null && !string.IsNullOrEmpty(_locationProvider))
                 _locationManager.RequestLocationUpdates(_locationProvider, 10000, 10, this);
+
+            base.OnResume();
         }
 
         protected override void OnPause()
         {
-            base.OnPause();
+            if (receiver != null)
+                UnregisterReceiver(receiver);
 
             if (_locationManager != null)
                 _locationManager.RemoveUpdates(this);
+
+            base.OnPause();
+        }
+
+        public void HandleMessage(RequestVM request)
+        {
+            if (serviceRequests != null)
+            {
+                bool inProgressPresent = serviceRequests.Any(x => x.StartedTime != null);
+                if (!inProgressPresent)
+                {
+                    serviceRequests.Insert(0, request);
+
+                    RunOnUiThread(() =>
+                   {
+                       adapter2 = new RequestsAdapter(serviceRequests.ToArray(), _currentLocation);
+                       rvRequests.SetAdapter(adapter2);
+                       adapter2.ItemClick += Adapter2_ItemClick;
+                       adapter2.NotifyDataSetChanged();
+                   });
+                    
+                }
+            }
         }
 
         public void OnLocationChanged(Location location)
@@ -215,6 +282,40 @@ namespace GHC
         public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
         {
 
+        }
+
+        [BroadcastReceiver(Enabled = true)]
+        [IntentFilter(new[] { "com.com.globalhomecare.huduma.REQUESTMESSAGE" })]
+        public class RequestsReceiver : BroadcastReceiver
+        {
+            public MainActivity Activity { get; set; }
+
+            public override void OnReceive(Context context, Intent intent)
+            {
+                long requestId = intent.GetLongExtra("requestId", 0);
+                string customerName = intent.GetStringExtra("customerName");
+                string customerPhone = intent.GetStringExtra("customerPhone");
+                string healthServiceName = intent.GetStringExtra("healthServiceName");
+                string healthServiceSwahiliName = intent.GetStringExtra("healthServiceSwahiliName");
+                double latitude = intent.GetDoubleExtra("latitude", 0);
+                double longitude = intent.GetDoubleExtra("longitude", 0);
+                DateTime initiatedTime = DateTime.Parse(intent.GetStringExtra("initiatedTime"));
+
+                RequestVM vm = new RequestVM()
+                {
+                    Id = requestId,
+                    CustomerName = customerName,
+                    CustomerPhone = customerPhone,
+                    HealthServiceName = healthServiceName,
+                    HealthServiceSwahiliName = healthServiceSwahiliName,
+                    Latitude = latitude,
+                    Longitude = longitude,
+                    InitiatedTime = initiatedTime
+                };
+
+                if (Activity != null)
+                    Activity.HandleMessage(vm); 
+            }
         }
     }
 }

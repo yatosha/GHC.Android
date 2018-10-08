@@ -277,7 +277,7 @@ namespace GHC
                 helpView.SetText(Resource.String.worker_arriving);
 
                 helpView.Text = Resources.GetString(Resource.String.treatment_complete);
-                Animation animation = new TranslateAnimation(0, 0, 0, -250);
+                Animation animation = new TranslateAnimation(0, 0, 0, 0);
                 animation.Duration = 300;
                 animation.FillAfter = true;
                 helpView.StartAnimation(animation);
