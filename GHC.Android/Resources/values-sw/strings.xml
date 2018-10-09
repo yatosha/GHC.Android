@@ -24,4 +24,14 @@
   <string name="receiving_treatment">UNAPOKEA MATIBABU</string>
   <string name="treatment_complete">MATIBABU YAMEKAMILIKA</string>
   <string name="service_cancelled">HUDUMA IMESITISHWA</string>
+  <string name="my_profile">TAARIFA ZANGU</string>
+  <string name="treatment_request">HUDUMA YA MATIBABU</string>
+  <string name="user_interface">Muonekano</string>
+  <string name="security">Usalama</string>
+  <string name="language">Lugha</string>
+  <string name="change_language">Badili lugha ya app</string>
+  <string name="about">Kuhusu</string>
+  <string name="version">Toleo</string>
+  <string name="settings">Mipangilio</string>
+  <string name="treatments">Matibabu</string>
 </resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:minWidth="25px"
+	android:minHeight="25px"
+	android:layout_width="match_parent"
+	android:layout_height="100dp"
+	android:layout_margin="5dp"
+	android:id="@+id/cardView1" >
+	<ImageView
+		android:src="@drawable/profile_icon"
+		android:layout_width="70dp"
+		android:layout_height="70dp"
+		android:layout_marginLeft="10dp"
+		android:layout_marginTop="10dp"
+		android:id="@+id/imageView1" />
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginLeft="80dp"
+		android:layout_marginTop="10dp"
+		android:layout_marginRight="10dp"
+		android:paddingLeft="10dp">
+		<TextView
+			android:text="Medium Text"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/tvName"
+			fontPath="fonts/Nunito-Bold.ttf"
+			android:textAllCaps="true" />
+		<TextView
+				android:text="Vidonda vya macho"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvService"
+				android:textColor="@color/colorPrimaryDark" />
+			<TextView
+				android:text="26 May, 2018"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvDate"
+				android:textColor="@color/material_grey_600" />
+		
+	</LinearLayout>
+	<TextView
+		android:text="18,500"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/tvPrice"
+		android:padding="5dp"
+		android:layout_gravity="bottom|right"
+		android:textSize="18dp"
+		android:background="@drawable/price_background"
+		android:textColor="@android:color/white" />
+</android.support.v7.widget.CardView>

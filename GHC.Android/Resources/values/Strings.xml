@@ -24,4 +24,15 @@
   <string name="receiving_treatment">RECEIVING TREATMENT</string>
   <string name="treatment_complete">TREATMENT COMPLETE</string>
   <string name="service_cancelled">SERVICE HAS BEEN CANCELLED BY USER</string>
+  <string name="my_profile">MY PROFILE</string>
+  <string name="treatment_request">TREATMENT REQUEST</string>
+  <string name="finish">Finish</string>
+  <string name="user_interface">User Interface</string>
+  <string name="security">Security</string>
+  <string name="language">Language</string>
+  <string name="change_language">Change application language</string>
+  <string name="about">About</string>
+  <string name="version">Version</string>
+  <string name="settings">Settings</string>
+  <string name="treatments">Treatments</string>
 </resources>

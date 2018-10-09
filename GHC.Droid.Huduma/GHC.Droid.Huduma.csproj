@@ -22,6 +22,11 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Users\Sume\AppData\Local\Xamarin\Mono for Android\Keystore\globalhomecare\globalhomecare.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>,'Andro?meda</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>globalhomecare</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>,'Andro?meda</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -37,7 +42,7 @@
     <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
+    <DebugSymbols>false</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>True</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,8 +52,13 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>Full</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis />
+    <AndroidLinkSkip>SQLite-net</AndroidLinkSkip>
+    <BundleAssemblies>false</BundleAssemblies>
+    <JavaMaximumHeapSize>2G</JavaMaximumHeapSize>
+    <EnableProguard>false</EnableProguard>
+    <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -131,7 +141,7 @@
       <Version>1.0.4</Version>
     </PackageReference>
     <PackageReference Include="RestSharp">
-      <Version>106.4.2</Version>
+      <Version>106.5.2</Version>
     </PackageReference>
     <PackageReference Include="SQLiteNetExtensions.Async">
       <Version>2.1.0</Version>
@@ -396,6 +406,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-sw\strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProguardConfiguration Include="proguard.cfg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

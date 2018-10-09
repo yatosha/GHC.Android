@@ -20,11 +20,13 @@ using Calligraphy;
 using GHC.Adapters;
 using GHC.Data;
 using Java.Interop;
+using Newtonsoft.Json;
 using PL.Bclogic.Pulsator4droid.Library;
 using Square.Picasso;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace GHC
@@ -52,13 +54,12 @@ namespace GHC
 
         PulsatorLayout pulsator;
         ImageView btnGo;
-        RecyclerView recyclerView;
         TextView helpView;
+        ImageView imgSettings, imgProfile;
 
-        string[] menuItems = { "History", "Settings" };
         AppState appState = AppState.Idle;
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
@@ -66,21 +67,20 @@ namespace GHC
 
             pulsator = FindViewById<PulsatorLayout>(Resource.Id.pulsator);
             btnGo = FindViewById<ImageView>(Resource.Id.btnGo);
-            recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            imgProfile = FindViewById<ImageView>(Resource.Id.imgProfile);
+            imgSettings = FindViewById<ImageView>(Resource.Id.imgSettings);
             helpView = FindViewById<TextView>(Resource.Id.help);
 
-            GridLayoutManager lm = new GridLayoutManager(this, 2);
-            recyclerView.SetLayoutManager(lm);
+            imgProfile.Click += ((sender, e) =>
+           {
+               StartActivity(typeof(ProfileActivity));
+           });
 
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.Context, DividerItemDecoration.Vertical);
-            DividerItemDecoration dividerItemDecoration2 = new DividerItemDecoration(recyclerView.Context, DividerItemDecoration.Horizontal);
-            recyclerView.AddItemDecoration(dividerItemDecoration);
-            recyclerView.AddItemDecoration(dividerItemDecoration2);
-
-            MainMenuAdapter adapter = new MainMenuAdapter(menuItems);
-            recyclerView.SetAdapter(adapter);
-
-            adapter.ItemClick += Adapter_ItemClick;
+            imgSettings.Click += ((sender, e) =>
+            {
+                Intent intent = new Intent(this, typeof(SettingsActivity));
+                StartActivity(intent);
+            });
 
             btnGo.Click += BtnGo_Click;
 
@@ -99,20 +99,7 @@ namespace GHC
             {
                 string message = Intent.GetStringExtra("message");
 
-                HandleMessage(requestId, message);
-            }
-        }
-        
-
-        private void Adapter_ItemClick(object sender, MainMenuAdapterClickEventArgs e)
-        {
-            if (e.Position == 0)
-            {
-
-            }
-            else
-            {
-
+                await HandleMessage(requestId, message);
             }
         }
 
@@ -242,7 +229,7 @@ namespace GHC
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
-        internal void HandleMessage(long requestId, string message)
+        internal async Task HandleMessage(long requestId, string message)
         {
             if (message == "accepted")
             {
@@ -283,32 +270,18 @@ namespace GHC
                 helpView.StartAnimation(animation);
 
                 pulsator.Stop();
-            }
 
-        }
-
-        private async void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            string token = SettingsHelper.GetToken(this);
-            ServiceRequest req = await ServiceHelper.GetRequest(token, requestId);
-            if (req != null)
-            {
-                if (req.HealthcareProviderId != null && req.HealthcareProviderId > 0)
+                string token = SettingsHelper.GetToken(this);
+                RequestVM request = await ServiceHelper.GetRequest(token, requestId);
+                if (request != null)
                 {
-                    appState = AppState.Waiting;
-                    Picasso.With(this).Load(Resource.Drawable.button_receiving).Into(btnGo);
-                    pulsator.Visibility = ViewStates.Visible;
-                    helpView.SetText(Resource.String.worker_arriving);
-
-                    Animation animation = new TranslateAnimation(0, 0, 0, 250);
-                    animation.Duration = 300;
-                    animation.FillAfter = true;
-                    helpView.StartAnimation(animation);
-
-                    pulsator.Stop();
-                    pulsator.Start();
+                    Intent intent = new Intent(this, typeof(InvoiceActivity));
+                    intent.AddFlags(ActivityFlags.ClearTop);
+                    intent.PutExtra("request", JsonConvert.SerializeObject(request));
+                    StartActivity(intent);
                 }
             }
+
         }
 
 
@@ -429,13 +402,13 @@ namespace GHC
         {
             public MainActivity Activity { get; set; }
 
-            public override void OnReceive(Context context, Intent intent)
+            public override async void OnReceive(Context context, Intent intent)
             {
                 long requestId = intent.GetLongExtra("requestId", 0);
                 string message = intent.GetStringExtra("message");
 
                 if (Activity != null)
-                    Activity.HandleMessage(requestId, message);
+                    await Activity.HandleMessage(requestId, message);
             }
         }
 

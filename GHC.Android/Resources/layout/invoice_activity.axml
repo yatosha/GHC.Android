@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_height="140dp"
+		android:layout_width="match_parent"
+		android:minHeight="?attr/actionBarSize"
+		android:background="?attr/colorPrimary"
+		style="@style/MyLightToolbarStyle">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:id="@+id/linearLayout1">
+			<TextView
+				android:text="@string/treatment_request"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tbTitle"
+				android:gravity="center"
+				android:textColor="@android:color/white"
+				android:textStyle="bold"
+				android:layout_marginTop="10dp" />
+			<TextView
+				android:text="TOTAL AMOUNT"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvAmountTitle"
+				android:textColor="@android:color/white"
+				android:layout_marginTop="40dp"
+				android:gravity="center" />
+			<TextView
+				android:text="26,500"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvAmount"
+				android:gravity="center"
+				android:textColor="@android:color/white"
+				fontPath="fonts/Nunito-Bold.ttf"
+				android:textSize="42dp" 
+				 />
+			
+		</LinearLayout>
+	</android.support.v7.widget.Toolbar>
+	<FrameLayout
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:id="@+id/frameLayout1" >
+		<ImageView
+			android:src="@drawable/invoice_background"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/imageView1"
+			android:scaleType="fitXY" />
+	</FrameLayout>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="20dp">
+		<TextView
+			android:text="Jina la mteja"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/textView1"
+			android:layout_weight="1" />
+		<TextView
+			android:text="Asif Ansari"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/tvName"
+			android:layout_weight="1"
+			android:gravity="right" />
+	</LinearLayout>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:background="#585858" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="20dp" >
+		<TextView
+			android:text="Huduma"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/textView1"
+			android:layout_weight="1" />
+		<TextView
+			android:text="Sindano"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/tvService"
+			android:layout_weight="1"
+			android:gravity="right" />
+	</LinearLayout>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:background="#585858" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="20dp" >
+		<TextView
+			android:text="Muda wa kufika"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/textView1"
+			android:layout_weight="1" />
+		<TextView
+			android:text="00:52:27"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/tvDurationArrival"
+			android:layout_weight="1"
+			android:gravity="right" />
+	</LinearLayout>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:background="#585858"/>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="20dp" >
+		<TextView
+			android:text="Muda wa huduma"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/textView1"
+			android:layout_weight="1" />
+		<TextView
+			android:text="02:32:14"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/tvDurationService"
+			android:layout_weight="1"
+			android:gravity="right" />
+	</LinearLayout>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:background="#585858"/>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="20dp">
+		<TextView
+			android:text="Tarehe"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/textView1"
+			android:layout_weight="1" />
+		<TextView
+			android:text="28 Agosti, 2018"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/tvDate"
+			android:layout_weight="1"
+			android:gravity="right" />
+	</LinearLayout>
+	<Button
+			android:text="Close"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginBottom="20dp"
+		android:background="@color/colorPrimary"
+		android:textColor="@android:color/white"
+			android:id="@+id/btnClose" />
+	
+
+</LinearLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:minHeight="?attr/actionBarSize"
+		android:background="?attr/colorPrimary"
+		style="@style/MyLightToolbarStyle">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:id="@+id/linearLayout1">
+			<TextView
+				android:text="@string/my_profile"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="fill_parent"
+				android:id="@+id/tbTitle"
+				android:gravity="center"
+				android:textColor="@android:color/white"
+				android:textStyle="bold"
+				android:layout_marginTop="20dp" />
+			<ImageView
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:id="@+id/avatar"
+				android:padding="4dp"
+				android:layout_centerVertical="true"
+				android:src="@drawable/profile_icon"
+				android:layout_gravity="center"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp" />
+			<TextView
+				android:text="ASUMEGE ALISON"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="match_parent"
+				android:layout_height="fill_parent"
+				android:id="@+id/tvName"
+				android:gravity="center"
+				android:textColor="@android:color/white"
+				fontPath="fonts/Nunito-Bold.ttf"
+				android:layout_marginBottom="10dp"
+				android:textAllCaps="true" />
+		</LinearLayout>
+	</android.support.v7.widget.Toolbar>
+	<FrameLayout
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="82dp"
+		android:layout_marginTop="193dp"
+		android:id="@+id/frameLayout" >
+		<ImageView
+			android:src="@drawable/profile_rectangle"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:id="@+id/imageView1" />
+		<android.support.v7.widget.CardView
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:layout_height="match_parent"
+			android:layout_marginBottom="4dp"
+			android:id="@+id/cardView1"
+			android:layout_width="320dp"
+			android:layout_gravity="center"
+			app:cardCornerRadius="8dp" >
+			<TextView
+				android:text="@string/treatments"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:layout_marginTop="15dp"
+				android:layout_marginLeft="0dp"
+				android:id="@+id/textView1"
+				fontPath="fonts/Nunito-Bold.ttf"
+				android:textStyle="bold"
+				android:textAllCaps="true" />
+			<TextView
+				android:text="71"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:layout_marginTop="-10dp"
+				android:layout_marginLeft="0dp"
+				android:textColor="@color/colorPrimary"
+				android:id="@+id/tvNumServices"
+				fontPath="fonts/Nunito-Bold.ttf"
+				android:textStyle="bold" />
+		</android.support.v7.widget.CardView>
+	</FrameLayout>
+	<android.support.v7.widget.RecyclerView
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginTop="280dp"
+		android:id="@+id/recyclerView"
+		android:layout_weight="1" />
+	<ProgressBar
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/progressBar"
+		android:layout_gravity="center"/>
+</FrameLayout>

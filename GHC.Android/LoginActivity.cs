@@ -85,7 +85,11 @@ namespace GHC
             {
                 SettingsHelper.SaveToken(token, this);
                 await SendRegistrationToServer(token);
-                
+
+                string name = await ServiceHelper.GetName(token);
+                if (name != null)
+                    SettingsHelper.SaveName(name, this);
+
                 Intent intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             }

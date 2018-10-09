@@ -30,6 +30,19 @@ namespace GHC.Data
                 return null;
         }
 
+        public static async Task<string> GetName(string token)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest($"/token/getname", Method.GET);
+            request.AddHeader("Authorization", $"bearer {token}");
+            request.AddHeader("content-type", "application/json");
+            IRestResponse<string> response = await client.ExecuteTaskAsync<string>(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return response.Data;
+            else
+                return null;
+        }
+
         public static async Task<bool> Register(CustomerViewModel model)
         {
             RestClient client = new RestClient(baseUrl);
@@ -75,14 +88,14 @@ namespace GHC.Data
                 return 0;
         }
 
-        public static async Task<ServiceRequest> GetRequest(string token, long id)
+        public static async Task<RequestVM> GetRequest(string token, long id)
         {
             RestClient client = new RestClient(baseUrl);
             RestRequest request = new RestRequest($"/servicerequests/getrequest", Method.GET);
             request.AddQueryParameter("id", id.ToString());
             request.AddHeader("Authorization", $"bearer {token}");
             request.AddHeader("content-type", "application/json");
-            IRestResponse<ServiceRequest> response = await client.ExecuteTaskAsync<ServiceRequest>(request);
+            IRestResponse<RequestVM> response = await client.ExecuteTaskAsync<RequestVM>(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 return response.Data;
             else
@@ -95,6 +108,19 @@ namespace GHC.Data
             RestRequest request = new RestRequest($"/pricingcategories/get", Method.GET);
             request.AddHeader("content-type", "application/json");
             IRestResponse<List<PricingCategory>> response = await client.ExecuteTaskAsync<List<PricingCategory>>(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return response.Data;
+            else
+                return null;
+        }
+
+        public static async Task<List<RequestVM>> GetHistory(string token)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest($"/servicerequests/gethistory", Method.GET);
+            request.AddHeader("Authorization", $"bearer {token}");
+            request.AddHeader("content-type", "application/json");
+            IRestResponse<List<RequestVM>> response = await client.ExecuteTaskAsync<List<RequestVM>>(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 return response.Data;
             else
