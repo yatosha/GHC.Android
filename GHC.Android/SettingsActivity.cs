@@ -12,6 +12,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using Calligraphy;
+using GHC.Data;
 
 namespace GHC
 {
@@ -21,6 +22,13 @@ namespace GHC
         SettingsFragment fragment;
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            string theme = SettingsHelper.GetTheme(this);
+            if (theme == "dark")
+            {
+                SetTheme(Resource.Style.Dark_Theme);
+            }
+
+
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.settings_activity);

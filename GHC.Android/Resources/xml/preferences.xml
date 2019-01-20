@@ -13,6 +13,14 @@
       android:entries="@array/languages"
       android:entryValues="@array/locales" />
 
+    <ListPreference
+      android:title="@string/theme"
+      android:summary="@string/change_theme"
+      android:key="theme"
+      android:defaultValue="Light"
+      android:entries="@array/themes"
+      android:entryValues="@array/theme_values" />
+
   </android.support.v7.preference.PreferenceCategory>
 
   <android.support.v7.preference.PreferenceCategory

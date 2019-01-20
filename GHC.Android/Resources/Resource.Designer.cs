@@ -114,8 +114,14 @@ namespace GHC
 			// aapt resource value: 0x7f0f0001
 			public const int locales = 2131689473;
 			
+			// aapt resource value: 0x7f0f0004
+			public const int menuItems = 2131689476;
+			
+			// aapt resource value: 0x7f0f0003
+			public const int theme_values = 2131689475;
+			
 			// aapt resource value: 0x7f0f0002
-			public const int menuItems = 2131689474;
+			public const int themes = 2131689474;
 			
 			static Array()
 			{
@@ -4013,6 +4019,9 @@ namespace GHC
 			// aapt resource value: 0x7f080051
 			public const int change_language = 2131230801;
 			
+			// aapt resource value: 0x7f080057
+			public const int change_theme = 2131230807;
+			
 			// aapt resource value: 0x7f08002b
 			public const int character_counter_pattern = 2131230763;
 			
@@ -4139,6 +4148,9 @@ namespace GHC
 			// aapt resource value: 0x7f080046
 			public const int tap_here = 2131230790;
 			
+			// aapt resource value: 0x7f080056
+			public const int theme = 2131230806;
+			
 			// aapt resource value: 0x7f080049
 			public const int treatment_complete = 2131230793;
 			
@@ -4197,14 +4209,14 @@ namespace GHC
 			// aapt resource value: 0x7f0c0191
 			public const int AppTheme = 2131493265;
 			
-			// aapt resource value: 0x7f0c0193
-			public const int AppTheme_AppBarOverlay = 2131493267;
+			// aapt resource value: 0x7f0c0194
+			public const int AppTheme_AppBarOverlay = 2131493268;
 			
 			// aapt resource value: 0x7f0c0192
 			public const int AppTheme_NoActionBar = 2131493266;
 			
-			// aapt resource value: 0x7f0c0194
-			public const int AppTheme_PopupOverlay = 2131493268;
+			// aapt resource value: 0x7f0c0195
+			public const int AppTheme_PopupOverlay = 2131493269;
 			
 			// aapt resource value: 0x7f0c00ab
 			public const int Base_AlertDialog_AppCompat = 2131493035;
@@ -4707,11 +4719,14 @@ namespace GHC
 			// aapt resource value: 0x7f0c0010
 			public const int CardView_Light = 2131492880;
 			
-			// aapt resource value: 0x7f0c0195
-			public const int MyAlertDialogStyle = 2131493269;
+			// aapt resource value: 0x7f0c0193
+			public const int Dark_Theme = 2131493267;
 			
 			// aapt resource value: 0x7f0c0196
-			public const int MyLightToolbarStyle = 2131493270;
+			public const int MyAlertDialogStyle = 2131493270;
+			
+			// aapt resource value: 0x7f0c0197
+			public const int MyLightToolbarStyle = 2131493271;
 			
 			// aapt resource value: 0x7f0c002f
 			public const int Platform_AppCompat = 2131492911;
@@ -5121,8 +5136,8 @@ namespace GHC
 			// aapt resource value: 0x7f0c017f
 			public const int Theme_Design_NoActionBar = 2131493247;
 			
-			// aapt resource value: 0x7f0c0197
-			public const int Theme_Splash = 2131493271;
+			// aapt resource value: 0x7f0c0198
+			public const int Theme_Splash = 2131493272;
 			
 			// aapt resource value: 0x7f0c0118
 			public const int ThemeOverlay_AppCompat = 2131493144;

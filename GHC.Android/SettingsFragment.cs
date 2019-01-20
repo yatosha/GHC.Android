@@ -12,6 +12,7 @@ using Android.Support.V7.Preferences;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using GHC.Data;
 
 namespace GHC
 {

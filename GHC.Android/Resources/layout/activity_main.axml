@@ -44,7 +44,8 @@
 		android:layout_marginTop="50dp"
 		android:textStyle="bold"
 		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp" />
+		android:layout_marginRight="20dp"
+	    fontPath="fonts/SanFranciscoText-Bold.ttf"/>
 	<ImageView
 		android:src="@drawable/ghc_logo_white"
 		android:layout_width="100dp"

@@ -5,7 +5,9 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -71,6 +73,15 @@ namespace GHC.Data
             ISharedPreferences preferences = context.GetSharedPreferences(prefsFile, FileCreationMode.Private);
             string token = preferences.GetString(KEY_NAME, string.Empty);
             return token;
+        }
+
+        public static string GetTheme(Context context)
+        {
+            ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(context);
+            Configuration config = context.Resources.Configuration;
+
+            string theme = preferences.GetString("theme", "en");
+            return theme;
         }
     }
 }

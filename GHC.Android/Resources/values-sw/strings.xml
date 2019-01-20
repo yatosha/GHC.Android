@@ -34,4 +34,6 @@
   <string name="version">Toleo</string>
   <string name="settings">Mipangilio</string>
   <string name="treatments">Matibabu</string>
+  <string name="theme">Muonekano</string>
+  <string name="change_theme">Badilisha muonekano</string>
 </resources>

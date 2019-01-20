@@ -102,6 +102,11 @@
     <AndroidAsset Include="Assets\fonts\Nunito-Bold.ttf" />
     <AndroidAsset Include="Assets\fonts\Nunito-Regular.ttf" />
     <GoogleServicesJson Include="google-services.json" />
+    <AndroidAsset Include="Assets\fonts\SanFranciscoText-Light.ttf" />
+    <AndroidAsset Include="Assets\fonts\SanFranciscoText-Regular.ttf" />
+    <AndroidAsset Include="Assets\fonts\SanFranciscoText-Semibold.ttf" />
+    <AndroidAsset Include="Assets\fonts\SanFranciscoText-Bold.ttf" />
+    <AndroidAsset Include="Assets\fonts\SanFranciscoText-Heavy.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />

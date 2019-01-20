@@ -27,6 +27,12 @@ namespace GHC
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            string theme = SettingsHelper.GetTheme(this);
+            if (theme == "dark")
+            {
+                SetTheme(Resource.Style.Dark_Theme);
+            }
+
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.login_activity);

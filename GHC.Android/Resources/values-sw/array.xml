@@ -10,6 +10,16 @@
     <item>sw</item>
   </string-array>
 
+  <string-array name="themes">
+    <item>Mweupe</item>
+    <item>Mweusi</item>
+  </string-array>
+
+  <string-array name="theme_values">
+    <item>light</item>
+    <item>dark</item>
+  </string-array>
+
   <string-array name="menuItems">
     <item>Taarifa zangu</item>
     <item>Mipangilio</item>
