@@ -22,6 +22,8 @@ namespace GHC
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class ServicesActivity : AppCompatActivity
     {
+        const int SELECT_TIME_REQUEST_CODE = 200;
+
         RecyclerView recyclerView;
         List<HealthService> services;
 
@@ -78,12 +80,57 @@ namespace GHC
         private void Adapter_ItemClick(object sender, ServicesAdapterClickEventArgs e)
         {
             HealthService service = services[e.Position];
+            
 
-            Intent returnIntent = new Intent();
-            returnIntent.PutExtra("serviceId", service.Id);
-            returnIntent.PutExtra("serviceName", service.Name);
-            SetResult(Result.Ok, returnIntent);
-            Finish();
+            var builder = new Android.Support.V7.App.AlertDialog.Builder(this);
+            builder.SetTitle(Resource.String.when_do_you_need_service);
+
+            builder.SetNegativeButton(Resource.String.cancel, (sender2, e2) => { });
+
+            ArrayAdapter<string> dialogAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1);
+            dialogAdapter.Add(Resources.GetString(Resource.String.now));
+            dialogAdapter.Add(Resources.GetString(Resource.String.later));
+            builder.SetAdapter(dialogAdapter, async (sender2, e2) =>
+            {
+                string option = dialogAdapter.GetItem(e2.Which);
+                if (option == Resources.GetString(Resource.String.now))
+                {
+                    Intent returnIntent = new Intent();
+                    returnIntent.PutExtra("serviceId", service.Id);
+                    returnIntent.PutExtra("serviceName", service.Name);
+                    SetResult(Result.Ok, returnIntent);
+                    Finish();
+                }
+                else
+                {
+                    Intent intent = new Intent(this, typeof(SelectTimeActivity));
+                    intent.PutExtra("serviceId", service.Id);
+                    intent.PutExtra("serviceName", service.Name);
+                    StartActivityForResult(intent, SELECT_TIME_REQUEST_CODE);
+                }
+            });
+
+            builder.Show();
+        }
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            if (requestCode == SELECT_TIME_REQUEST_CODE && resultCode == Result.Ok)
+            {
+                int hour = data.GetIntExtra("hour", 0);
+                int minute = data.GetIntExtra("minute", 0);
+                long serviceId = data.GetLongExtra("serviceId", 0);
+                string serviceName = data.GetStringExtra("serviceName");
+
+                Intent returnIntent = new Intent();
+                returnIntent.PutExtra("serviceId", serviceId);
+                returnIntent.PutExtra("serviceName", serviceName);
+                returnIntent.PutExtra("hour", hour);
+                returnIntent.PutExtra("minute", minute);
+                SetResult(Result.Ok, returnIntent);
+                Finish();
+            }
+            base.OnActivityResult(requestCode, resultCode, data);
         }
 
         protected override void AttachBaseContext(Context newBase)

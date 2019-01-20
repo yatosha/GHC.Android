@@ -194,6 +194,15 @@ namespace GHC
         {
             if (requestCode == 200 && resultCode == Result.Ok)
             {
+                int hour = data.GetIntExtra("hour", 0);
+                int minute = data.GetIntExtra("minute", 0);
+                DateTime? scheduledTime = DateTime.Today;
+                if (hour == 0 && minute == 0)
+                    scheduledTime = null;
+                else
+                    scheduledTime = scheduledTime?.AddHours(hour).AddMinutes(minute);
+
+
                 long healthServiceId = data.GetLongExtra("serviceId", 0);
                 string token = SettingsHelper.GetToken(this);
 
@@ -221,7 +230,8 @@ namespace GHC
                     Latitude = latitude,
                     Longitude = longitude,
                     Status = RequestStatus.Initiated,
-                    HealthServiceId = healthServiceId
+                    HealthServiceId = healthServiceId,
+                    ScheduledTime = scheduledTime
                 };
 
                 requestId = await ServiceHelper.LogRequest(token, request);

@@ -80,8 +80,18 @@ namespace GHC.Data
             ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(context);
             Configuration config = context.Resources.Configuration;
 
-            string theme = preferences.GetString("theme", "en");
+            string theme = preferences.GetString("theme", "dark");
             return theme;
+        }
+
+        public static void SaveTheme(Context context, string theme)
+        {
+            ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(context);
+            ISharedPreferencesEditor editor = preferences.Edit();
+            editor.PutString("theme", theme);
+
+            //Commit the edits
+            editor.Commit();
         }
     }
 }

@@ -36,4 +36,10 @@
   <string name="treatments">Matibabu</string>
   <string name="theme">Muonekano</string>
   <string name="change_theme">Badilisha muonekano</string>
+  <string name="when_do_you_need_service">Unahitaji huduma wakati gani?</string>
+  <string name="select_time">Chagua muda</string>
+  <string name="now">Sasa hivi</string>
+  <string name="later">Baadae</string>
+  <string name="submit">Wasilisha</string>
+  <string name="cancel">Sitisha</string>
 </resources>

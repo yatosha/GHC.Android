@@ -18,6 +18,7 @@ namespace GHC.Data
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public DateTime InitiatedTime { get; set; }
+        public DateTime? ScheduledTime { get; set; }
         public DateTime? AssignedTime { get; set; }
         public DateTime? StartedTime { get; set; }
         public DateTime? CompletedTime { get; set; }

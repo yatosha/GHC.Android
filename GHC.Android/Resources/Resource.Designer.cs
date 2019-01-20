@@ -2910,8 +2910,8 @@ namespace GHC
 			// aapt resource value: 0x7f0b0067
 			public const int action_mode_close_button = 2131427431;
 			
-			// aapt resource value: 0x7f0b00ef
-			public const int action_settings = 2131427567;
+			// aapt resource value: 0x7f0b00f1
+			public const int action_settings = 2131427569;
 			
 			// aapt resource value: 0x7f0b00ca
 			public const int action_text = 2131427530;
@@ -2966,6 +2966,9 @@ namespace GHC
 			
 			// aapt resource value: 0x7f0b00ea
 			public const int btnRegister = 2131427562;
+			
+			// aapt resource value: 0x7f0b00ec
+			public const int btnSubmit = 2131427564;
 			
 			// aapt resource value: 0x7f0b006e
 			public const int buttonPanel = 2131427438;
@@ -3087,8 +3090,8 @@ namespace GHC
 			// aapt resource value: 0x7f0b0059
 			public const int forever = 2131427417;
 			
-			// aapt resource value: 0x7f0b00eb
-			public const int fragmentContainer = 2131427563;
+			// aapt resource value: 0x7f0b00ed
+			public const int fragmentContainer = 2131427565;
 			
 			// aapt resource value: 0x7f0b00e3
 			public const int frameLayout = 2131427555;
@@ -3189,14 +3192,14 @@ namespace GHC
 			// aapt resource value: 0x7f0b009b
 			public const int logo = 2131427483;
 			
-			// aapt resource value: 0x7f0b00ee
-			public const int masked = 2131427566;
+			// aapt resource value: 0x7f0b00f0
+			public const int masked = 2131427568;
 			
 			// aapt resource value: 0x7f0b00ce
 			public const int media_actions = 2131427534;
 			
-			// aapt resource value: 0x7f0b00ec
-			public const int message = 2131427564;
+			// aapt resource value: 0x7f0b00ee
+			public const int message = 2131427566;
 			
 			// aapt resource value: 0x7f0b0032
 			public const int middle = 2131427378;
@@ -3438,6 +3441,9 @@ namespace GHC
 			// aapt resource value: 0x7f0b00d3
 			public const int time = 2131427539;
 			
+			// aapt resource value: 0x7f0b00eb
+			public const int timePicker = 2131427563;
+			
 			// aapt resource value: 0x7f0b001c
 			public const int title = 2131427356;
 			
@@ -3537,8 +3543,8 @@ namespace GHC
 			// aapt resource value: 0x7f0b0016
 			public const int view_offset_helper = 2131427350;
 			
-			// aapt resource value: 0x7f0b00ed
-			public const int visible = 2131427565;
+			// aapt resource value: 0x7f0b00ef
+			public const int visible = 2131427567;
 			
 			// aapt resource value: 0x7f0b003d
 			public const int withText = 2131427389;
@@ -3843,19 +3849,22 @@ namespace GHC
 			public const int select_dialog_singlechoice_material = 2130968654;
 			
 			// aapt resource value: 0x7f04004f
-			public const int service_item = 2130968655;
+			public const int select_time_activity = 2130968655;
 			
 			// aapt resource value: 0x7f040050
-			public const int services_activity = 2130968656;
+			public const int service_item = 2130968656;
 			
 			// aapt resource value: 0x7f040051
-			public const int settings_activity = 2130968657;
+			public const int services_activity = 2130968657;
 			
 			// aapt resource value: 0x7f040052
-			public const int support_simple_spinner_dropdown_item = 2130968658;
+			public const int settings_activity = 2130968658;
 			
 			// aapt resource value: 0x7f040053
-			public const int tooltip = 2130968659;
+			public const int support_simple_spinner_dropdown_item = 2130968659;
+			
+			// aapt resource value: 0x7f040054
+			public const int tooltip = 2130968660;
 			
 			static Layout()
 			{
@@ -4016,6 +4025,9 @@ namespace GHC
 			// aapt resource value: 0x7f08002a
 			public const int bottom_sheet_behavior = 2131230762;
 			
+			// aapt resource value: 0x7f08005d
+			public const int cancel = 2131230813;
+			
 			// aapt resource value: 0x7f080051
 			public const int change_language = 2131230801;
 			
@@ -4064,6 +4076,9 @@ namespace GHC
 			// aapt resource value: 0x7f080050
 			public const int language = 2131230800;
 			
+			// aapt resource value: 0x7f08005b
+			public const int later = 2131230811;
+			
 			// aapt resource value: 0x7f080040
 			public const int loading_services = 2131230784;
 			
@@ -4081,6 +4096,9 @@ namespace GHC
 			
 			// aapt resource value: 0x7f080036
 			public const int name = 2131230774;
+			
+			// aapt resource value: 0x7f08005a
+			public const int now = 2131230810;
 			
 			// aapt resource value: 0x7f080039
 			public const int password = 2131230777;
@@ -4136,6 +4154,9 @@ namespace GHC
 			// aapt resource value: 0x7f08003d
 			public const int select_service = 2131230781;
 			
+			// aapt resource value: 0x7f080059
+			public const int select_time = 2131230809;
+			
 			// aapt resource value: 0x7f08004a
 			public const int service_cancelled = 2131230794;
 			
@@ -4144,6 +4165,9 @@ namespace GHC
 			
 			// aapt resource value: 0x7f080031
 			public const int status_bar_notification_info_overflow = 2131230769;
+			
+			// aapt resource value: 0x7f08005c
+			public const int submit = 2131230812;
 			
 			// aapt resource value: 0x7f080046
 			public const int tap_here = 2131230790;
@@ -4171,6 +4195,9 @@ namespace GHC
 			
 			// aapt resource value: 0x7f080053
 			public const int version = 2131230803;
+			
+			// aapt resource value: 0x7f080058
+			public const int when_do_you_need_service = 2131230808;
 			
 			// aapt resource value: 0x7f080047
 			public const int worker_arriving = 2131230791;

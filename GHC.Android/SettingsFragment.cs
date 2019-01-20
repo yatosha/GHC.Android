@@ -21,6 +21,8 @@ namespace GHC
         const int REQUEST_CODE_PIN = 100;
         const int REQUEST_CODE_PASSWORD = 200;
 
+        ISharedPreferences sp;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,23 +34,28 @@ namespace GHC
 
             Preference versionPreference = FindPreference("keyAbout");
             versionPreference.Summary = Activity.PackageManager.GetPackageInfo(Activity.PackageName, 0).VersionName;
+
+            PreferenceManager.GetDefaultSharedPreferences(Activity).RegisterOnSharedPreferenceChangeListener(this);
         }
 
         public override void OnResume()
         {
             base.OnResume();
-            //PreferenceManager.SharedPreferences.RegisterOnSharedPreferenceChangeListener(this);
+            PreferenceManager.GetDefaultSharedPreferences(Activity).RegisterOnSharedPreferenceChangeListener(this);
         }
 
         public override void OnPause()
         {
-            //PreferenceManager.SharedPreferences.UnregisterOnSharedPreferenceChangeListener(this);
+            PreferenceManager.GetDefaultSharedPreferences(Activity).UnregisterOnSharedPreferenceChangeListener(this);
             base.OnPause();
         }
 
         public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences, string key)
         {
-            Activity.Recreate();
+            Intent intent = new Intent(Activity, typeof(SettingsActivity));
+            intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.NewTask);
+            StartActivity(intent);
+            Activity.Finish();
         }
 
 

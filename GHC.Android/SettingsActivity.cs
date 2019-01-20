@@ -63,7 +63,14 @@ namespace GHC
         public override void OnBackPressed()
         {
             SetResult(Result.Ok);
-            base.OnBackPressed();
+            if (Intent.Flags.HasFlag(ActivityFlags.ClearTop))
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                intent.AddFlags(ActivityFlags.ClearTop);
+                StartActivity(intent);
+            }
+            else
+                base.OnBackPressed();
         }
 
         
