@@ -45,11 +45,11 @@
 		android:textStyle="bold"
 		android:layout_marginLeft="20dp"
 		android:layout_marginRight="20dp"
-	    fontPath="fonts/SanFranciscoText-Bold.ttf"/>
+	    fontPath="fonts/Poppins-Bold.ttf"/>
 	<ImageView
 		android:src="@drawable/ghc_logo_white"
 		android:layout_width="100dp"
-		android:layout_height="60dp"
+		android:layout_height="100dp"
 		android:id="@+id/logo"
 		android:layout_gravity="top|left"
 		android:layout_marginLeft="20dp"

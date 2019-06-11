@@ -34,7 +34,7 @@ namespace GHC
             await Repository.InitializeDatabase();
 
             CalligraphyConfig.InitDefault(new CalligraphyConfig.Builder()
-                    .SetDefaultFontPath("fonts/Nunito-Regular.ttf")
+                    .SetDefaultFontPath("fonts/Poppins-SemiBold.ttf")
                 .Build()
             );
         }

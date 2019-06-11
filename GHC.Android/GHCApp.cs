@@ -41,7 +41,7 @@ namespace GHC
             //UpdateLanguage(this);
 
             CalligraphyConfig.InitDefault(new CalligraphyConfig.Builder()
-                    .SetDefaultFontPath("fonts/SanFranciscoText-Regular.ttf")
+                    .SetDefaultFontPath("fonts/Poppins-SemiBold.ttf")
                     //.SetFontAttrId(Resource.Attribute.fontPath)
                 // Adding a custom view that support adding a typeFace
                 // .AddCustomViewWithSetTypeface(Java.Lang.Class.FromType(typeof(CustomViewWithTypefaceSupport)))

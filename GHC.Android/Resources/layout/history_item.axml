@@ -29,7 +29,7 @@
 			android:minWidth="25px"
 			android:minHeight="25px"
 			android:id="@+id/tvName"
-			fontPath="fonts/Nunito-Bold.ttf"
+			fontPath="fonts/Poppins-Bold.ttf"
 			android:textAllCaps="true" />
 		<TextView
 				android:text="Vidonda vya macho"
